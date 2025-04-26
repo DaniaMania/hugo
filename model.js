@@ -3,7 +3,7 @@ import { GoogleGenAI } from "@google/genai";
 
 dotenv.config();
 
-const ai = new GoogleGenAI({ apiKey: process.env.TEMP_GEMINI_API_KEY });
+const ai = new GoogleGenAI({ apiKey: process.env.TEMP_GEMINI_API_KEY }); // Use TEMP_GEMINI_API_KEY when quota of the primary one is reached
 
 export async function generateGeminiResponse(userInput) {
     console.log(`Processing request: ${userInput}`);
