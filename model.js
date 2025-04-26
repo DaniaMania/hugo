@@ -1,38 +1,29 @@
 import dotenv from "dotenv";
 import { GoogleGenAI } from "@google/genai";
-import readline from "readline";
-
-// Program started
-console.log("Program start");
 
 dotenv.config();
 
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-});
+const ai = new GoogleGenAI({ apiKey: process.env.TEMP_GEMINI_API_KEY });
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+export async function generateGeminiResponse(userInput) {
+    console.log(`Processing request: ${userInput}`);
 
-const files = [
-    await ai.files.upload({ file: 'hugo_data_samples/specs/scanned_S1_V1_specs.pdf' }),
-    await ai.files.upload({ file: 'hugo_data_samples/specs/scanned_S3_V1_specs.pdf' }),
-    await ai.files.upload({ file: 'hugo_data_samples/specs/scanned_S2_V1_specs.pdf' }),
-    await ai.files.upload({ file: 'hugo_data_samples/specs/scanned_S3_V2_specs.pdf' }),
-    await ai.files.upload({ file: 'hugo_data_samples/specs/scanned_S1_V2_specs.pdf' }),
-    await ai.files.upload({ file: 'hugo_data_samples/specs/scanned_S2_V2_specs.pdf' }),
-    await ai.files.upload({ file: 'hugo_data_samples/dispatch_parameters.csv' }),
-    await ai.files.upload({ file: 'hugo_data_samples/material_orders.csv' }),
-    await ai.files.upload({ file: 'hugo_data_samples/sales_orders.csv' }),
-    await ai.files.upload({ file: 'hugo_data_samples/material_master.csv' }),
-    await ai.files.upload({ file: 'hugo_data_samples/stock_levels.csv' }),
-    await ai.files.upload({ file: 'hugo_data_samples/stock_movements.csv' }),
-    await ai.files.upload({ file: 'hugo_data_samples/suppliers.csv' }),
-]
-
-/* Code from Google AI Studio starts here */
-async function model(param) {
-    console.log(`Processing request: ${param}`); // exception of this line, written by Tri
+    // Upload files (this happens every time unless we optimize later)
+    const files = [
+        await ai.files.upload({ file: 'hugo_data_samples/specs/scanned_S1_V1_specs.pdf' }),
+        await ai.files.upload({ file: 'hugo_data_samples/specs/scanned_S3_V1_specs.pdf' }),
+        await ai.files.upload({ file: 'hugo_data_samples/specs/scanned_S2_V1_specs.pdf' }),
+        await ai.files.upload({ file: 'hugo_data_samples/specs/scanned_S3_V2_specs.pdf' }),
+        await ai.files.upload({ file: 'hugo_data_samples/specs/scanned_S1_V2_specs.pdf' }),
+        await ai.files.upload({ file: 'hugo_data_samples/specs/scanned_S2_V2_specs.pdf' }),
+        await ai.files.upload({ file: 'hugo_data_samples/dispatch_parameters.csv' }),
+        await ai.files.upload({ file: 'hugo_data_samples/material_orders.csv' }),
+        await ai.files.upload({ file: 'hugo_data_samples/sales_orders.csv' }),
+        await ai.files.upload({ file: 'hugo_data_samples/material_master.csv' }),
+        await ai.files.upload({ file: 'hugo_data_samples/stock_levels.csv' }),
+        await ai.files.upload({ file: 'hugo_data_samples/stock_movements.csv' }),
+        await ai.files.upload({ file: 'hugo_data_samples/suppliers.csv' }),
+    ];
 
     const config = {
         responseMimeType: 'text/plain',
@@ -51,14 +42,14 @@ async function model(param) {
       Greet the user interacting with you, then address the request -- keep your messages short, simple, and friendly, so that it is easy to understand. If you do the math, keep it in mind, but use natural language. If there’s any primary concerns, mention those first and address the others after. Keep it within 250 words.
       `,
                 },
-            ],
+            ]
         },
         {
             role: 'model',
             parts: [
                 {
                     text: `The user wants me to act as Hugo, an assistant at a scooter startup called Voltway.
-      My main goal is to help manage the inventory complexity for their 6 scooters: S1 V1, S1 V2, S2 V1, S2 V2, S3 V1, S3 V2.
+        My main goal is to help manage the inventory complexity for their 6 scooters: S1 V1, S1 V2, S2 V1, S2 V2, S3 V1, S3 V2.
       I need to format my responses in a specific way:
       1.  **Greet the user.**
       2.  **Address the request.**
@@ -84,59 +75,29 @@ async function model(param) {
                 },
                 {
                     text: `Hey there! Hugo here, ready to help out at Voltway.
-      
-      Keeping track of parts for all our scooters – the S1 V1, S1 V2, S2 V1, S2 V2, S3 V1, and S3 V2 – is definitely our biggest puzzle right now. Making sure we have the right components on hand without overstocking is tricky!
+    
+        Keeping track of parts for all our scooters – the S1 V1, S1 V2, S2 V1, S2 V2, S3 V1, and S3 V2 – is definitely our biggest puzzle right now. Making sure we have the right components on hand without overstocking is tricky!
       
       My goal is to help streamline things so we can keep our operations running smoothly.
       
       What's on your mind? How can I assist you today?`,
                 },
-            ],
+            ]
         },
         {
             role: 'user',
             parts: [
-                {
-                    fileData: {
-                        fileUri: files[0].uri,
-                        mimeType: files[0].mimeType,
-                    }
-                },
-                {
-                    fileData: {
-                        fileUri: files[1].uri,
-                        mimeType: files[1].mimeType,
-                    }
-                },
-                {
-                    fileData: {
-                        fileUri: files[2].uri,
-                        mimeType: files[2].mimeType,
-                    }
-                },
-                {
-                    fileData: {
-                        fileUri: files[3].uri,
-                        mimeType: files[3].mimeType,
-                    }
-                },
-                {
-                    fileData: {
-                        fileUri: files[4].uri,
-                        mimeType: files[4].mimeType,
-                    }
-                },
-                {
-                    fileData: {
-                        fileUri: files[5].uri,
-                        mimeType: files[5].mimeType,
-                    }
-                },
-                {
-                    text: `Before you start I’m going to send you a set of PDF files and a set of CSV files:
-      Here are the build specifications for the Voltway scooters (S1 V1, S1 V2, S2 V1, S2 V2, S3 V1, S3 V2):`,
-                },
-            ],
+                { fileData: { fileUri: files[0].uri, mimeType: files[0].mimeType }},
+                { fileData: { fileUri: files[1].uri, mimeType: files[1].mimeType }},
+                { fileData: { fileUri: files[2].uri, mimeType: files[2].mimeType }},
+                { fileData: { fileUri: files[3].uri, mimeType: files[3].mimeType }},
+                { fileData: { fileUri: files[4].uri, mimeType: files[4].mimeType }},
+                { fileData: { fileUri: files[5].uri, mimeType: files[5].mimeType }},
+                { 
+                    text: `Before you start:
+    Here are the build specifications for the Voltway scooters (S1 V1, S1 V2, S2 V1, S2 V2, S3 V1, S3 V2):`,
+                }
+            ]
         },
         {
             role: 'model',
@@ -156,64 +117,29 @@ async function model(param) {
                 },
                 {
                     text: `Hey there!
-      
-      Got the build specifications for all our scooters: S1 V1, S1 V2, S2 V1, S2 V2, S3 V1, and S3 V2. Thanks for sending those over!
+    
+    Got the build specifications for all our scooters: S1 V1, S1 V2, S2 V1, S2 V2, S3 V1, and S3 V2. Thanks for sending those over!
       
       Having these detailed Bills of Materials is super helpful. It gives us a clear picture of exactly what parts go into each scooter model. This is definitely the foundation for tackling our inventory complexity challenge.
       
       I've got these filed away. Let me know what you need me to look at first!`,
-                },
-            ],
+                }
+            ]
         },
         {
             role: 'user',
             parts: [
-                {
-                    fileData: {
-                        fileUri: files[6].uri,
-                        mimeType: files[6].mimeType,
-                    }
-                },
-                {
-                    fileData: {
-                        fileUri: files[7].uri,
-                        mimeType: files[7].mimeType,
-                    }
-                },
-                {
-                    fileData: {
-                        fileUri: files[8].uri,
-                        mimeType: files[8].mimeType,
-                    }
-                },
-                {
-                    fileData: {
-                        fileUri: files[9].uri,
-                        mimeType: files[9].mimeType,
-                    }
-                },
-                {
-                    fileData: {
-                        fileUri: files[10].uri,
-                        mimeType: files[10].mimeType,
-                    }
-                },
-                {
-                    fileData: {
-                        fileUri: files[11].uri,
-                        mimeType: files[11].mimeType,
-                    }
-                },
-                {
-                    fileData: {
-                        fileUri: files[12].uri,
-                        mimeType: files[12].mimeType,
-                    }
-                },
-                {
-                    text: `Here are the CSV files to give you context on what's happening at your startup:`,
-                },
-            ],
+                { fileData: { fileUri: files[6].uri, mimeType: files[6].mimeType }},
+                { fileData: { fileUri: files[7].uri, mimeType: files[7].mimeType }},
+                { fileData: { fileUri: files[8].uri, mimeType: files[8].mimeType }},
+                { fileData: { fileUri: files[9].uri, mimeType: files[9].mimeType }},
+                { fileData: { fileUri: files[10].uri, mimeType: files[10].mimeType }},
+                { fileData: { fileUri: files[11].uri, mimeType: files[11].mimeType }},
+                { fileData: { fileUri: files[12].uri, mimeType: files[12].mimeType }},
+                { text: `Before you start:
+    Here are the CSV files to give you context on what's happening at your startup:`,
+                }
+            ]
         },
         {
             role: 'model',
@@ -240,24 +166,30 @@ async function model(param) {
       7.  Formulate a response that highlights the blocked parts for S2 V2 as the primary concern and mentions the obsolete parts and multi-location storage as other factors contributing to inventory complexity. Keep it short, simple, and friendly.`,
                 },
                 {
-                    text: `Okay, got all the CSV files: \`dispatch_parameters\`, \`material_master\`, \`material_orders\`, \`sales_orders\`, \`stock_levels\`, \`stock_movements\`, and \`suppliers\`. Thanks! This gives us a much clearer view of our inventory situation.
-      
-      My main concern right away is seeing parts **P312 (S2 V2 Motor)** and **P313 (S2 V2 Battery Pack)** marked as "Blocked" in the \`material_master\` file due to quality issues and a safety recall. This directly impacts our ability to build or service the S2 V2 Pro model, which is a big deal.
-      
-      I also see we have some older parts (\`P300\`, \`P301\`) listed as obsolete, but still have stock. Managing these phase-outs alongside the current parts adds to the complexity, as does tracking stock across our three different warehouse locations (WH1, WH2, WH3).
-      
-      Let me know what specific inventory questions you have or what area you'd like me to investigate first!`,
-                },
-            ],
+                    text: `Hey there!
+    
+    Got it, thanks for sending over all these CSV files:
+    
+    *   \`dispatch_parameters.csv\` (our reordering rules)
+    *   \`material_orders.csv\` (what parts we've ordered)
+    *   \`sales_orders.csv\` (what scooters customers ordered)
+    *   \`material_master.csv\` (details about each part)
+    *   \`stock_levels.csv\` (current inventory counts)
+    *   \`stock_movements.csv\` (parts coming in and going out)
+    *   \`suppliers.csv\` (info on who we buy parts from)
+    
+    Wow, this is a goldmine of information! This gives us a much clearer picture of our entire inventory flow, from ordering parts to selling scooters. This is exactly what I need to start untangling the complexity and figuring out how to get the right parts at the right time.
+    
+    I'm ready to dive into this data. Let me know what you'd like me to look at first!`,
+                }
+            ]
         },
         {
             role: 'user',
             parts: [
-                {
-                    text: `${param}`, // exception of this line, written by Tri
-                },
-            ],
-        },
+                { text: `${userInput}` } // <-- The live user prompt
+            ]
+        }
     ];
 
     const response = await ai.models.generateContentStream({
@@ -266,22 +198,10 @@ async function model(param) {
         contents,
     });
 
+    let fullText = '';
     for await (const chunk of response) {
-        console.log(chunk.text);
+        fullText += chunk.text;
     }
+
+    return fullText;e
 }
-/* Code from Google AI Studio ends here */
-
-async function main() {
-    while (true) {
-        const userInput = await new Promise((resolve) => {
-            rl.question("You: ", input => {
-                resolve(input);
-            });
-        });
-
-        await model(userInput);
-    }
-}
-
-main();
