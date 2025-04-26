@@ -12,11 +12,11 @@ const rl = readline.createInterface({
     output: process.stdout,
 });
 
-// From Google AI Studio
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
+/* Code from Google AI Studio starts here */
 async function model(param) {
-    console.log(`Processing request: ${param}`);
+    console.log(`Processing request: ${param}`); // exception of this line, written by Tri
 
     const files = [
         await ai.files.upload({ file: 'hugo_data_samples/specs/scanned_S2_V2_specs.pdf' }),
@@ -204,7 +204,7 @@ async function model(param) {
             role: 'user',
             parts: [
                 {
-                    text: `${param}`,
+                    text: `${param}`, // exception of this line, written by Tri
                 },
             ],
         },
@@ -220,6 +220,7 @@ async function model(param) {
         console.log(chunk.text);
     }
 }
+/* Code from Google AI Studio ends here */
 
 async function main() {
     while (true) {
