@@ -1,14 +1,19 @@
-import express from "express";
+import express from 'express';
+import { generateGeminiResponse, generateGeminiNotification } from '../src/model.js';
+
 const router = express.Router();
 
-// Simulate a Gemini API call
 router.post('/', async (req, res) => {
     const { prompt } = req.body;
 
-    // Here you will replace with actual Gemini API call
-    const fakeResponse = `Gemini says: "${prompt?.toUpperCase() || 'No prompt provided'}"`;
-
-    res.json({ response: fakeResponse });
+    try {
+        // const geminiResponse = await generateGeminiResponse(prompt);
+        const geminiResponse = await generateGeminiNotification();
+        res.json({ response: geminiResponse });
+    } catch (error) {
+        console.error('Error contacting Gemini model:', error);
+        res.status(500).json({ error: 'Failed to get response from Gemini AI' });
+    }
 });
 
 export default router;
