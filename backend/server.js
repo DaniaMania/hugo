@@ -2,7 +2,7 @@ import cors from 'cors';
 import express, { json } from 'express';
 import router from './routes/gemini.js';
 import authRoutes from './routes/auth.js';
-import dashboardRoutes from './routes/dashboard.js';
+// import dashboardRoutes from './routes/dashboard.js';
 
 const app = express();
 
@@ -34,7 +34,7 @@ function logger(req, res, next) {
 }
 
 // server 
-app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`)
-});
-// app.listen(5000, () => console.log('Server running on http://localhost:5000'));
+// app.listen(PORT, () => {
+//     console.log(`Server running on http://localhost:${PORT}`)
+// });
+app.listen(5000, () => console.log('Server running on http://localhost:5000'));

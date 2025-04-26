@@ -208,8 +208,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(135deg, #1472FF 22%, #FFFFFF 45%, #7BCCFF 72%);
-  color: transparent;
   background-clip: text;
   -webkit-background-clip: text;
   min-height: 100vh;
