@@ -1,6 +1,14 @@
-import React from "react";
+import React, { use, useEffect } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+
+    
+
     return (
         <div className="flex flex-col items-center justify-center h-screen w-full landing-background">
             <div className="bg-white p-8 rounded-2xl shadow-xl w-96">
