@@ -1,11 +1,17 @@
 import React, { useState } from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 
 function MainPage() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const navigate = useNavigate();
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
+    };
+
+    const handleSignOut = () => {
+        // Here you would typically clear any user session/tokens
+        navigate('/login');
     };
 
     return (
@@ -110,15 +116,26 @@ function MainPage() {
 
                     {/* Sidebar Footer */}
                     <div className="p-4 border-t">
-                        <div className="flex items-center space-x-3">
-                            <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white">
-                                <span className="text-sm font-medium">U</span>
-                            </div>
-                            <div>
-                                <p className="text-sm font-medium text-gray-700">User Name</p>
-                                <p className="text-xs text-gray-500">user@example.com</p>
+                        <div className="flex items-center justify-between mb-4">
+                            <div className="flex items-center space-x-3">
+                                <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white">
+                                    <span className="text-sm font-medium">U</span>
+                                </div>
+                                <div>
+                                    <p className="text-sm font-medium text-gray-700">User Name</p>
+                                    <p className="text-xs text-gray-500">user@example.com</p>
+                                </div>
                             </div>
                         </div>
+                        <button
+                            onClick={handleSignOut}
+                            className="w-full flex items-center justify-center p-2 text-sm text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                            </svg>
+                            Sign Out
+                        </button>
                     </div>
                 </div>
             </div>
