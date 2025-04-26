@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
+import { useDarkMode } from "../components/DarkModeContext";
 
 function MainPage() {
+    const { isDarkMode, toggleDarkMode } = useDarkMode();
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
     const toggleSidebar = () => {
@@ -9,7 +11,7 @@ function MainPage() {
     };
 
     return (
-        <div className="flex h-screen bg-gray-100">
+        <div className={`flex h-screen ${isDarkMode ? "bg-gray-900 text-white" : "bg-gray-100 text-black"}`}>
             {/* Floating Toggle Button */}
             {!isSidebarOpen && (
                 <button
@@ -61,6 +63,22 @@ function MainPage() {
                             </svg>
                             Dashboard
                         </NavLink>
+                        
+                        <NavLink
+                            to="/main/hugo"
+                            className={({ isActive }) =>
+                                `flex items-center p-3 rounded-lg transition-colors duration-200 ${
+                                    isActive
+                                        ? 'bg-blue-50 text-blue-600'
+                                        : 'text-gray-600 hover:bg-gray-100'
+                                }`
+                            }
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                            </svg>
+                            Hugo Chatbot
+                        </NavLink>
                         <NavLink
                             to="/main/inbox"
                             className={({ isActive }) =>
@@ -91,6 +109,7 @@ function MainPage() {
                             </svg>
                             Orders
                         </NavLink>
+                        
                         <NavLink
                             to="/main/stock"
                             className={({ isActive }) =>
@@ -126,9 +145,11 @@ function MainPage() {
             {/* Main Content */}
             <div className={`flex-1 transition-all duration-300 ${isSidebarOpen ? 'ml-64' : 'ml-0'}`}>
                 <div className="p-8">
+                    
                     <Outlet />
                 </div>
             </div>
+
         </div>
     );
 }
