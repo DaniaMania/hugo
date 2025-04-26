@@ -18,6 +18,7 @@ export function extractEml(filePath) {
         i++;
     }
 
+    
     const content = lines.slice(i + 1).join('\n');
 
     const sender = headers['From'] || 'Unknown';
