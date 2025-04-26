@@ -3,10 +3,16 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      fontFamily: {
+        'inter': ['Inter', 'sans-serif'],
+      },
       backgroundImage: {
         landing: `
-        radial-gradient(at 100% 100%, rgb(55, 48, 163) 0, transparent 52%), radial-gradient(at 83% 100%, rgb(233, 213, 255) 0, transparent 29%), radial-gradient(at 0% 100%, rgb(30, 64, 175) 0, transparent 36%), radial-gradient(at 15% 100%, rgb(165, 180, 252) 0, transparent 40%);`
-  ,
+          radial-gradient(at 100% 100%, rgba(20, 114, 255, 0.5) 0, transparent 52%),
+          radial-gradient(at 83% 100%, rgba(255, 255, 255, 0.5) 0, transparent 29%),
+          radial-gradient(at 0% 100%, rgba(123, 204, 255, 0.5) 0, transparent 36%),
+          radial-gradient(at 15% 100%, rgba(20, 114, 255, 0.3) 0, transparent 40%)
+        `,
       },
     },
   },

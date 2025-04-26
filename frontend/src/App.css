@@ -1,5 +1,11 @@
 .App {
   text-align: center;
+  font-family: 'Ubuntu', sans-serif;
+  background: linear-gradient(135deg, #1472FF 22%, #FFFFFF 45%, #7BCCFF 72%);
+  min-height: 100vh;
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
 }
 
 .App-logo {
@@ -14,18 +20,23 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background: linear-gradient(135deg, #1472FF 22%, #FFFFFF 45%, #7BCCFF 72%);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
 }
 
 .App-link {
-  color: #61dafb;
+  color: transparent;
+  background: linear-gradient(135deg, #1472FF 22%, #FFFFFF 45%, #7BCCFF 72%);
+  background-clip: text;
+  -webkit-background-clip: text;
 }
 
 @keyframes App-logo-spin {

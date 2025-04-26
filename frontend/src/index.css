@@ -7,8 +7,36 @@
       @apply bg-landing bg-black
     ;
   }
+  .gradient-text {
+    background: linear-gradient(135deg, #1472FF 22%, #FFFFFF 45%, #7BCCFF 72%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: bold;
+    font-size: 4rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  }
   /* .btn {
       @apply
 
   } */
+}
+
+body {
+  margin: 0;
+  font-family: 'Ubuntu', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, #1472FF 22%, #FFFFFF 45%, #7BCCFF 72%);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  min-height: 100vh;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
 }
