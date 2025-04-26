@@ -1,26 +1,15 @@
-import router from './routes/gemini.js';
-
-import express, { json } from 'express';
+const express = require('express');
+const cors = require('cors');
 const app = express();
 
 // middleware
-app.use(json());
-app.use(logger);
-
-app.set('view engine', 'ejs');
+app.use(express.json());
+app.use(cors());
 
 // routes
-app.use('/gemini', router);
-
 app.get('/', (req, res) => {
-    res.render('index', { text: "World" });
+    res.json({ message: 'Welcome to Hugo API' });
 });
-
-// logger middleware
-function logger(req, res, next) {
-    console.log(req.originalUrl);
-    next();
-}
 
 // server 
 const PORT = process.env.PORT || 5000;

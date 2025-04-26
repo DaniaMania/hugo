@@ -53,14 +53,14 @@ function Dashboard() {
                     <div className="h-96">
                         <ResponsiveContainer width="100%" height="100%">
                             <LineChart data={stockData}>
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="name" />
-                                <YAxis />
+                                <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                                <XAxis dataKey="name" stroke="#6b7280" />
+                                <YAxis stroke="#6b7280" />
                                 <Tooltip />
                                 <Legend />
-                                <Line type="monotone" dataKey="quantity" stroke="#8884d8" name="Current Stock" />
-                                <Line type="monotone" dataKey="inbound" stroke="#82ca9d" name="Inbound Orders" />
-                                <Line type="monotone" dataKey="outbound" stroke="#ffc658" name="Outbound Orders" />
+                                <Line type="monotone" dataKey="quantity" stroke="#3b82f6" name="Current Stock" />
+                                <Line type="monotone" dataKey="inbound" stroke="#10b981" name="Inbound Orders" />
+                                <Line type="monotone" dataKey="outbound" stroke="#ef4444" name="Outbound Orders" />
                             </LineChart>
                         </ResponsiveContainer>
                     </div>
@@ -131,22 +131,22 @@ function Dashboard() {
     return (
         <div className="space-y-8">
             {/* Stock Overview Section */}
-            <div className="bg-white rounded-lg shadow p-8">
-                <h1 className="mb-6">Stock Overview</h1>
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
+                <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Stock Overview</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                    <div className="bg-blue-50 p-6 rounded-lg">
-                        <h3 className="text-blue-800 mb-2">Total Parts</h3>
-                        <p className="text-4xl font-bold text-blue-600">{stockData.length}</p>
+                    <div className="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg">
+                        <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300">Total Parts</h3>
+                        <p className="text-3xl font-bold text-gray-900 dark:text-white">{stockData.length}</p>
                     </div>
-                    <div className="bg-green-50 p-6 rounded-lg">
-                        <h3 className="text-green-800 mb-2">Total Quantity</h3>
-                        <p className="text-4xl font-bold text-green-600">
+                    <div className="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg">
+                        <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300">Total Quantity</h3>
+                        <p className="text-3xl font-bold text-gray-900 dark:text-white">
                             {stockData.reduce((sum, part) => sum + part.quantity, 0)}
                         </p>
                     </div>
-                    <div className="bg-purple-50 p-6 rounded-lg">
-                        <h3 className="text-purple-800 mb-2">Active Locations</h3>
-                        <p className="text-4xl font-bold text-purple-600">
+                    <div className="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg">
+                        <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300">Active Locations</h3>
+                        <p className="text-3xl font-bold text-gray-900 dark:text-white">
                             {new Set(stockData.map(part => part.location)).size}
                         </p>
                     </div>
@@ -206,36 +206,38 @@ function Dashboard() {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Reactive Intelligence Section */}
-                <div className="bg-white rounded-lg shadow p-8">
-                    <h2 className="mb-6">🔔 Reactive Intelligence</h2>
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
+                    <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">🔔 Reactive Intelligence</h2>
                     <div className="space-y-4">
                         {alerts.map((alert, index) => (
                             <div key={index} className={`p-4 rounded-lg ${
-                                alert.type === 'warning' ? 'bg-yellow-50 border-l-4 border-yellow-500' :
-                                alert.type === 'error' ? 'bg-red-50 border-l-4 border-red-500' :
-                                'bg-blue-50 border-l-4 border-blue-500'
+                                alert.type === 'warning' ? 'bg-yellow-50 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-200' :
+                                alert.type === 'error' ? 'bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-200' :
+                                'bg-blue-50 dark:bg-blue-900/20 text-blue-800 dark:text-blue-200'
                             }`}>
-                                <p className="text-sm text-gray-600 mb-1">{alert.timestamp}</p>
-                                <p className="font-medium">{alert.message}</p>
+                                <div className="flex justify-between items-center">
+                                    <p className="font-medium">{alert.message}</p>
+                                    <span className="text-sm opacity-75">{alert.timestamp}</span>
+                                </div>
                             </div>
                         ))}
                     </div>
                 </div>
 
                 {/* Email Alerts Section */}
-                <div className="bg-white rounded-lg shadow p-8">
-                    <h2 className="mb-6">Email Alerts</h2>
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
+                    <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Email Alerts</h2>
                     <div className="space-y-4">
                         {emails.map((email, index) => (
                             <div key={index} className={`p-4 rounded-lg border ${
-                                email.read ? 'bg-gray-50' : 'bg-blue-50'
+                                email.read ? 'bg-gray-50 dark:bg-gray-700 border-gray-200 dark:border-gray-600' : 'bg-white dark:bg-gray-800 border-blue-200 dark:border-blue-800'
                             }`}>
                                 <div className="flex justify-between items-start">
                                     <div>
-                                        <p className="font-medium mb-1">{email.from}</p>
-                                        <p className="text-gray-600">{email.subject}</p>
+                                        <p className="font-medium text-gray-900 dark:text-white">{email.from}</p>
+                                        <p className="text-gray-600 dark:text-gray-400">{email.subject}</p>
                                     </div>
-                                    <span className="text-sm text-gray-500">{email.timestamp}</span>
+                                    <span className="text-sm text-gray-500 dark:text-gray-400">{email.timestamp}</span>
                                 </div>
                             </div>
                         ))}
