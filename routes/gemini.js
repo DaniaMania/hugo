@@ -1,5 +1,5 @@
 import express from 'express';
-import { generateGeminiResponse } from '../model.js';
+import { generateGeminiResponse, generateGeminiNotification } from '../src/model.js';
 
 const router = express.Router();
 
@@ -7,7 +7,8 @@ router.post('/', async (req, res) => {
     const { prompt } = req.body;
 
     try {
-        const geminiResponse = await generateGeminiResponse(prompt);
+        // const geminiResponse = await generateGeminiResponse(prompt);
+        const geminiResponse = await generateGeminiNotification();
         res.json({ response: geminiResponse });
     } catch (error) {
         console.error('Error contacting Gemini model:', error);
