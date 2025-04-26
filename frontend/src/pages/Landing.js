@@ -12,9 +12,9 @@ function Landing() {
             </div>
             <button 
                 onClick={() => navigate('/login')}
-                className="mt-12 px-8 py-3 backdrop-blur-md bg-white/10 border border-white/20 rounded-full font-inter font-medium text-lg text-white hover:bg-white/20 transition-all duration-300 shadow-[0_0_15px_rgba(255,255,255,0.3)] hover:shadow-[0_0_20px_rgba(255,255,255,0.5)]"
+                className="glow-button mt-12"
             >
-                Let's get started
+                Get Started
             </button>
         </div>
     );
