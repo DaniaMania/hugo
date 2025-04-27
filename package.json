@@ -1,0 +1,21 @@
+{
+  "name": "hugo",
+  "version": "1.0.0",
+  "description": "Hugo - Inventory Management System",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "node server.js",
+    "client": "cd frontend && npm start",
+    "install-all": "npm install && cd frontend && npm install && cd ../backend && npm install",
+    "build": "cd frontend && npm run build"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+} 

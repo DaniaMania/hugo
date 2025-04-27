@@ -13,6 +13,7 @@ import Dashboard from "./components/Dashboard";
 import Hugo from "./pages/Hugo";
 import Inbox from "./pages/Inbox";
 import Orders from "./pages/Orders";
+import OrderDetail from "./components/OrderDetail";
 import Stock from "./pages/Stock";
 // import Home from "./pages/Home";
 
@@ -24,13 +25,14 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />
           <Route path="/main" element={<MainPage />}>
-            <Route index element={<Navigate to="dashboard" replace />} />
-            <Route path="dashboard" element={<Dashboard />} />
+            <Route index element={<Dashboard />} />
+            <Route path="orders" element={<Orders />} />
             <Route path="inbox" element={<Inbox />} />
             <Route path="hugo" element={<Hugo />} />
-            <Route path="orders" element={<Orders />} />
+            <Route path="orders/:orderId" element={<OrderDetail />} />
             <Route path="stock" element={<Stock />} />
           </Route>
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Router>
     </DarkModeProvider>
