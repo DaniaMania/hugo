@@ -28,61 +28,42 @@ CREATE TABLE IF NOT EXISTS emails (
 `).run();
 
 
-// --- CORS Configuration --- START
-// Define allowed origins
 const allowedOrigins = [
-  process.env.FRONTEND_URL || 'http://localhost:3000', // Primary: Env Var or Localhost fallback
-  'https://hugo-client-nine.vercel.app'                 // Explicitly allow your deployed frontend
-  // Add any other origins you need to allow (e.g., other dev environments)
+    process.env.FRONTEND_URL || 'http://localhost:3000',
+    'https://hugo-client-nine.vercel.app'
 ];
 
 const corsOptions = {
-  origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests) OR origins in our allowed list
-    // || !origin is important for server-to-server requests or tools like Postman
-    if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true); // Allow the request
-    } else {
-        console.error('CORS blocked origin:', origin); // Log blocked origins for easier debugging
-        callback(new Error(`Origin ${origin} not allowed by CORS`)); // Block the request
-    }
-  },
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'], // Explicitly list allowed methods
-  allowedHeaders: ['Content-Type', 'Authorization'], // Explicitly list allowed headers (add others like 'X-Requested-With' if needed)
-  credentials: true, // Allow credentials (cookies, authorization headers)
-  optionsSuccessStatus: 204 // Return 204 for successful preflight requests
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true); // Allow the request
+        } else {
+            console.error('CORS blocked origin:', origin);
+            callback(new Error(`Origin ${origin} not allowed by CORS`));
+        }
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+    optionsSuccessStatus: 204
 };
 
-// --- Apply CORS Middleware FIRST ---
-// It's generally best practice to apply CORS early
 app.use(cors(corsOptions));
 
-// --- CORS Configuration --- END
-
-
-// --- Other Middleware ---
-// Place logger after CORS if you want to log requests that passed CORS checks
-// Define logger function (hoisted)
 function logger(req, res, next) {
-    console.log(req.method, req.originalUrl); // Log method too for clarity
+    console.log(req.method, req.originalUrl);
     next();
 }
 app.use(logger);
 
-// Body parsers after CORS and logger, but before routes
-app.use(json()); // Parses incoming JSON requests
-app.use(express.urlencoded({ extended: true })); // Parses incoming URL-encoded requests
+app.use(json());
+app.use(express.urlencoded({ extended: true }));
 
-
-// Set view engine to EJS (usually relevant for server-rendered pages, not APIs)
 app.set('view engine', 'ejs');
 
-
-// --- Routes --- (Ensure these are defined AFTER all middleware)
 import router from './routes/gemini.js';
 import authRoutes from './routes/auth.js';
 app.use('/api/gemini', router);
-// Ensure your login route is defined within authRoutes, e.g., POST /api/auth/login
 app.use('/api/auth', authRoutes);
 
 
@@ -94,11 +75,11 @@ app.use('/api/auth', authRoutes);
 function formatDateToMySQL(date) {
     const pad = (n) => n < 10 ? '0' + n : n;
     return date.getFullYear() + '-' +
-           pad(date.getMonth() + 1) + '-' +
-           pad(date.getDate()) + ' ' +
-           pad(date.getHours()) + ':' +
-           pad(date.getMinutes()) + ':' +
-           pad(date.getSeconds());
+        pad(date.getMonth() + 1) + '-' +
+        pad(date.getDate()) + ' ' +
+        pad(date.getHours()) + ':' +
+        pad(date.getMinutes()) + ':' +
+        pad(date.getSeconds());
 }
 
 /**
@@ -122,10 +103,8 @@ async function loadEmailsIntoDatabase() {
     const insert = db.prepare(`
     INSERT INTO emails (date, sender, recipient, subject, content)
     VALUES (?, ?, ?, ?, ?)
-    ON CONFLICT(date, sender, recipient, subject) DO NOTHING -- Use ON CONFLICT instead of try/catch for duplicates
-    `); // Added ON CONFLICT for better duplicate handling
+    `);
 
-    // Use transaction for bulk inserts for better performance
     const insertMany = db.transaction((emails) => {
         for (const email of emails) {
             insert.run(email.formattedDate, email.sender, email.recipient, email.subject, email.content);
@@ -138,7 +117,6 @@ async function loadEmailsIntoDatabase() {
         const filePath = path.join(emailsDir, file);
         const fileContent = fs.readFileSync(filePath, 'utf-8');
 
-        // Basic parsing logic (consider a dedicated library like 'mailparser' for robustness)
         const headerEndIndex = fileContent.indexOf('\n\n'); // Find first double newline
         if (headerEndIndex === -1) {
             console.error(`Could not parse headers in file ${file}, skipping.`);
@@ -159,7 +137,7 @@ async function loadEmailsIntoDatabase() {
             } else if (line.toLowerCase().startsWith('subject:') && subject === null) {
                 subject = line.substring(8).trim();
             } else if (line.toLowerCase().startsWith('date:') && date === null) {
-                 try {
+                try {
                     date = new Date(line.substring(5).trim());
                     if (isNaN(date.getTime())) { // Check for invalid date
                         date = null; // Reset if parsing failed
@@ -192,12 +170,9 @@ async function loadEmailsIntoDatabase() {
     }
 }
 
-// Load emails on startup (consider if this should run every time or only once)
 loadEmailsIntoDatabase().catch(err => {
     console.error("Error loading emails into database:", err);
 });
 
-
-// Start the server
-const PORT = process.env.PORT || 4000; // Use PORT env var (common for deployments) or fallback
+const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
