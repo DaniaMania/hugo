@@ -21,4 +21,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-npm start
+
+# domain
+fetch(`${process.env.REACT_APP_API_URL}/api/something`)
