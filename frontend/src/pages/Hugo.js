@@ -11,6 +11,7 @@ function Hugo() {
   ]);
 
   const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
 
   function handleSend() {
     if (!input.trim()) return;
@@ -18,35 +19,25 @@ function Hugo() {
     const newMessages = [...messages, { role: "user", content: input }];
     setMessages(newMessages);
     setInput("");
+    setLoading(true);
 
-    // fake AI response for demonstration
-    const aiResponse = formatResponse(
-      "Hey there! Okay, let's look at which parts are running low. Based on our minimum stock levels, here are the parts we need to focus on: * **Critically Low (No Orders Inbound):** * P305 (S1 V2 Battery) * P308 (S2 V1 Motor) * P331 (Hydraulic Brake - used in all V2 models) We're below the minimum for these, and there aren't any open orders listed in the system. We need to order these ASAP! * **Low (Orders Might Be Late):** * P329 (OLED Display - V2 models) * P332 (Advanced Headlight - V2 models) These are also low, and their expected deliveries seem a bit overdue. We should check the status with the suppliers. * **Low (Orders Coming Soon):** * P307 (S1 V2 Frame) * P330 (12-inch Wheel - V2 models) These are low too, but we have orders expected in the next few days which should help. **Main Causes:** It looks like a mix of things: potentially higher demand than planned (especially for shared V2 parts), possible supplier delays for a couple of items, and critically, not having reordered some parts soon enough. Also, keep in mind those blocked S2 V2 parts (P312, P313) are a separate big issue affecting that model line."
-    );
-    if (!aiResponse) {
-      setMessages((prev) => [
-        ...prev,
-        { role: "ai", content: "Sorry, I couldn't fetch a response." },
-      ]);
-      return;
-    }
-    setMessages((prev) => [
-      ...prev,
-      { role: "ai", content: aiResponse },
-    ]);
-
-    // axios.post("http://localhost:5000/gemini", { prompt: input })
-    // .then((response) => {
-    //   const rawResponse = response.data.response;
-    //   // const aiResponse = formatResponse(rawResponse);
-    //   setMessages((prev) => [...prev, { role: "ai", content: rawResponse }]);
-    // })
-    // .catch((error) => {
-    //   console.error("Error fetching AI response:", error);
-    //   setMessages((prev) => [
-    //     ...prev, { role: "ai", content: "Sorry, I couldn't fetch a response." },
-    //   ]);
-    // });
+    axios
+      .post("http://localhost:5000/gemini", { prompt: input })
+      .then((response) => {
+        const rawResponse = response.data.response;
+        const aiResponse = formatResponse(rawResponse);
+        setMessages((prev) => [...prev, { role: "ai", content: aiResponse }]);
+      })
+      .catch((error) => {
+        console.error("Error fetching AI response:", error);
+        setMessages((prev) => [
+          ...prev,
+          { role: "ai", content: "Sorry, I couldn't fetch a response." },
+        ]);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }
 
   return (
@@ -67,6 +58,16 @@ function Hugo() {
             {msg.content}
           </div>
         ))}
+
+        {loading && (
+          <div className="p-3 rounded-lg max-w-[75%] lg:max-w-[60%] w-fit bg-gray-300 text-black mr-auto">
+            <div className="flex items-center gap-1">
+              <span className="w-2 h-2 bg-black rounded-full animate-wave"></span>
+              <span className="w-2 h-2 bg-black rounded-full animate-wave delay-200"></span>
+              <span className="w-2 h-2 bg-black rounded-full animate-wave delay-400"></span>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Input */}

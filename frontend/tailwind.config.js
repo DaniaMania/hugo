@@ -15,6 +15,15 @@ module.exports = {
           radial-gradient(at 15% 100%, rgba(20, 114, 255, 0.3) 0, transparent 40%)
         `,
       },
+      animation: {
+        wave: "wave 1.2s infinite",
+      },
+      keyframes: {
+        wave: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-5px)" },
+        },
+      },
     },
   },
   plugins: [],

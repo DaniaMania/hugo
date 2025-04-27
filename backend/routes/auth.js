@@ -79,6 +79,7 @@ const users = [
 
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
+    console.log(email, password);
 
     const user = users.find(user => user.email === email && user.password === password);
     if (user) {

@@ -106,6 +106,7 @@
   }
 }
 
+
 @layer components {
   .landing-background {
       @apply bg-landing bg-black

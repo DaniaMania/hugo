@@ -29,8 +29,6 @@ router.post('/', async (req, res) => {
 router.get('/notification', async (req, res) => {
 
     try {
-        const geminiResponse = await generateGeminiNotification();
-
         // response
         const geminiResponse = await generateGeminiResponse(prompt);
         res.json({ response: geminiResponse });
