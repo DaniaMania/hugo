@@ -13,7 +13,7 @@ function Login() {
   function handleLogin(e) {
     e.preventDefault();
     axios
-      .post("https://cors-anywhere.herokuapp.com/hugo-lovat-tau.vercel.app/auth/login", { email, password }, { withCredentials: true })
+      .post("/api/auth/login", { email, password }, { withCredentials: true })
       .then((response) => {
         console.log(response.data);
         if (response.status === 200) {
