@@ -22,7 +22,7 @@ function Hugo() {
     setLoading(true);
 
     axios
-      .post("http://localhost:5000/gemini", { prompt: input })
+      .post("http://localhost:4000/gemini", { prompt: input })
       .then((response) => {
         const rawResponse = response.data.response;
         const aiResponse = formatResponse(rawResponse);
@@ -51,8 +51,8 @@ function Hugo() {
             key={idx}
             className={`p-3 rounded-lg max-w-[75%] lg:max-w-[60%] w-fit ${
               msg.role === "user"
-                ? "bg-blue-500 text-white ml-auto"
-                : "bg-gray-300 text-black mr-auto"
+                ? "bg-blue-500 text-[#fff] ml-auto"
+                : "bg-gray-300 text-[#000] mr-auto"
             }`}
           >
             {msg.content}
