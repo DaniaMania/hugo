@@ -132,21 +132,21 @@ function Dashboard() {
         <div className="space-y-8">
             {/* Stock Overview Section */}
             <div className="bg-white dark:bg-[#282423] rounded-xl shadow-lg p-6 mb-6">
-                <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-4 font-['Inter']">Stock Overview</h2>
+                <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 font-['Inter']">Stock Overview</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg">
-                        <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300">Total Parts</h3>
-                        <p className="text-3xl font-bold text-gray-900 dark:text-white">{stockData.length}</p>
+                    <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+                        <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-200 font-['Inter']">Total Parts</h3>
+                        <p className="text-4xl font-bold text-gray-900 dark:text-white font-['Inter']">{stockData.length}</p>
                     </div>
-                    <div className="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg">
-                        <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300">Total Quantity</h3>
-                        <p className="text-3xl font-bold text-gray-900 dark:text-white">
+                    <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+                        <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-200 font-['Inter']">Total Quantity</h3>
+                        <p className="text-4xl font-bold text-gray-900 dark:text-white font-['Inter']">
                             {stockData.reduce((sum, part) => sum + part.quantity, 0)}
                         </p>
                     </div>
-                    <div className="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg">
-                        <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300">Active Locations</h3>
-                        <p className="text-3xl font-bold text-gray-900 dark:text-white">
+                    <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+                        <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-200 font-['Inter']">Active Locations</h3>
+                        <p className="text-4xl font-bold text-gray-900 dark:text-white font-['Inter']">
                             {new Set(stockData.map(part => part.location)).size}
                         </p>
                     </div>
@@ -154,15 +154,15 @@ function Dashboard() {
 
                 {/* Tabs */}
                 <div className="mb-8">
-                    <div className="border-b border-gray-200">
+                    <div className="border-b border-gray-200 dark:border-gray-700">
                         <nav className="-mb-px flex space-x-8" aria-label="Tabs">
                             <button
                                 onClick={() => setActiveTab('movement')}
                                 className={`${
                                     activeTab === 'movement'
-                                        ? 'border-blue-500 text-blue-600 dark:text-white'
-                                        : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white hover:border-gray-300'
-                                } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
+                                        ? 'border-blue-500 text-blue-600 dark:border-blue-400 dark:text-blue-400'
+                                        : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300'
+                                } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-base font-['Inter']`}
                             >
                                 Stock Movement
                             </button>
@@ -170,9 +170,9 @@ function Dashboard() {
                                 onClick={() => setActiveTab('distribution')}
                                 className={`${
                                     activeTab === 'distribution'
-                                        ? 'border-blue-500 text-blue-600 dark:text-white'
-                                        : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white hover:border-gray-300'
-                                } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
+                                        ? 'border-blue-500 text-blue-600 dark:border-blue-400 dark:text-blue-400'
+                                        : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300'
+                                } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-base font-['Inter']`}
                             >
                                 Stock Distribution
                             </button>
@@ -180,9 +180,9 @@ function Dashboard() {
                                 onClick={() => setActiveTab('category')}
                                 className={`${
                                     activeTab === 'category'
-                                        ? 'border-blue-500 text-blue-600 dark:text-white'
-                                        : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white hover:border-gray-300'
-                                } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
+                                        ? 'border-blue-500 text-blue-600 dark:border-blue-400 dark:text-blue-400'
+                                        : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300'
+                                } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-base font-['Inter']`}
                             >
                                 Category Distribution
                             </button>
@@ -190,9 +190,9 @@ function Dashboard() {
                                 onClick={() => setActiveTab('ratio')}
                                 className={`${
                                     activeTab === 'ratio'
-                                        ? 'border-blue-500 text-blue-600 dark:text-white'
-                                        : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white hover:border-gray-300'
-                                } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
+                                        ? 'border-blue-500 text-blue-600 dark:border-blue-400 dark:text-blue-400'
+                                        : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300'
+                                } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-base font-['Inter']`}
                             >
                                 Quantity Ratio
                             </button>
@@ -207,7 +207,7 @@ function Dashboard() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Reactive Intelligence Section */}
                 <div className="bg-white dark:bg-[#282423] rounded-xl shadow-lg p-6 mb-6">
-                    <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-4 font-['Inter']">🔔 Reactive Intelligence</h2>
+                    <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 font-['Inter']">🔔 Reactive Intelligence</h2>
                     <div className="space-y-4">
                         {alerts.map((alert, index) => (
                             <div key={index} className={`p-4 rounded-lg ${
@@ -216,8 +216,8 @@ function Dashboard() {
                                 'bg-blue-50 dark:bg-blue-900/20 text-blue-800 dark:text-blue-200'
                             }`}>
                                 <div className="flex justify-between items-center">
-                                    <p className="font-medium">{alert.message}</p>
-                                    <span className="text-sm opacity-75">{alert.timestamp}</span>
+                                    <p className="font-medium text-base font-['Inter']">{alert.message}</p>
+                                    <span className="text-sm opacity-75 font-['Inter']">{alert.timestamp}</span>
                                 </div>
                             </div>
                         ))}
@@ -226,18 +226,18 @@ function Dashboard() {
 
                 {/* Email Alerts Section */}
                 <div className="bg-white dark:bg-[#282423] rounded-xl shadow-lg p-6">
-                    <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-4 font-['Inter']">Email Alerts</h2>
+                    <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 font-['Inter']">Email Alerts</h2>
                     <div className="space-y-4">
                         {emails.map((email, index) => (
                             <div key={index} className={`p-4 rounded-lg border ${
-                                email.read ? 'bg-gray-50 dark:bg-gray-700 border-gray-200 dark:border-gray-600' : 'bg-white dark:bg-gray-800 border-blue-200 dark:border-blue-800'
+                                email.read ? 'bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700' : 'bg-white dark:bg-gray-800 border-blue-200 dark:border-blue-700'
                             }`}>
                                 <div className="flex justify-between items-start">
                                     <div>
-                                        <p className="font-medium text-gray-900 dark:text-white">{email.from}</p>
-                                        <p className="text-gray-600 dark:text-gray-400">{email.subject}</p>
+                                        <p className="font-medium text-base text-gray-900 dark:text-gray-200 font-['Inter']">{email.from}</p>
+                                        <p className="text-base text-gray-600 dark:text-gray-400 font-['Inter']">{email.subject}</p>
                                     </div>
-                                    <span className="text-sm text-gray-500 dark:text-gray-400">{email.timestamp}</span>
+                                    <span className="text-sm text-gray-500 dark:text-gray-400 font-['Inter']">{email.timestamp}</span>
                                 </div>
                             </div>
                         ))}
