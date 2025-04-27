@@ -1,5 +1,5 @@
 import express, { json } from 'express';
-import cors from 'cors'; // Make sure cors is imported
+import cors from 'cors';
 import fs from 'fs';
 import path from 'path';
 import Database from 'better-sqlite3';
@@ -43,7 +43,7 @@ const corsOptions = {
         }
     },
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    allowedHeaders: ['Content-Type', 'X-Auth-Token', 'Origin', 'Authorization'],
     credentials: true,
     optionsSuccessStatus: 204
 };
