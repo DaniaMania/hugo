@@ -1,5 +1,4 @@
 import express, { json } from 'express';
-import cors from 'cors';
 import fs from 'fs';
 import path from 'path';
 import Database from 'better-sqlite3';
@@ -26,29 +25,6 @@ CREATE TABLE IF NOT EXISTS emails (
     UNIQUE(date, sender, recipient, subject)
 )
 `).run();
-
-
-const allowedOrigins = [
-    process.env.FRONTEND_URL || 'http://localhost:3000',
-    'https://hugo-client-nine.vercel.app'
-];
-
-const corsOptions = {
-    origin: function (origin, callback) {
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            console.error('CORS blocked origin:', origin);
-            callback(new Error(`Origin ${origin} not allowed by CORS`));
-        }
-    },
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'X-Auth-Token', 'Origin', 'Authorization'],
-    credentials: true,
-    optionsSuccessStatus: 204
-};
-
-app.use(cors(corsOptions));
 
 function logger(req, res, next) {
     console.log(req.method, req.originalUrl);
