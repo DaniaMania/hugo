@@ -7,8 +7,8 @@ router.post('/', async (req, res) => {
     const { prompt } = req.body;
 
     try {
-        // const geminiResponse = await generateGeminiResponse(prompt);
-        const geminiResponse = await generateGeminiNotification();
+        const geminiResponse = await generateGeminiResponse(prompt);
+        // const geminiResponse = await generateGeminiNotification();
         res.json({ response: geminiResponse });
     } catch (error) {
         console.error('Error contacting Gemini model:', error);
@@ -16,4 +16,14 @@ router.post('/', async (req, res) => {
     }
 });
 
+router.get('/notification', async (req, res) => {
+
+    try {
+        const geminiResponse = await generateGeminiNotification();
+        res.json({ response: geminiResponse });
+    } catch (error) {
+        console.error('Error contacting Gemini model:', error);
+        res.status(500).json({ error: 'Failed to get response from Gemini AI' });
+    }
+});
 export default router;

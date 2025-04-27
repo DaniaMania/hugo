@@ -11,7 +11,7 @@ function MainPage() {
     };
 
     return (
-        <div className={`flex h-screen ${isDarkMode ? "bg-gray-900 text-white" : "bg-gray-100 text-black"}`}>
+        <div className={`flex min-h-screen ${isDarkMode ? "bg-gray-900 text-white" : "bg-gray-100 text-black"}`}>
             {/* Floating Toggle Button */}
             {!isSidebarOpen && (
                 <button
