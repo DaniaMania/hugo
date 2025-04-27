@@ -3,7 +3,6 @@ import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 
-// Clean text formatter
 function formatRawText(rawText) {
   if (typeof rawText !== "string") return "";
 
@@ -17,7 +16,6 @@ export default function formatResponse(response) {
 
   return (
     <div>
-      {/* ^ Apply global text size and color here */}
       <ReactMarkdown
         children={formattedText}
         components={{

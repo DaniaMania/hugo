@@ -17,11 +17,12 @@ function Login() {
       .then((response) => {
         console.log(response.data);
         if (response.status === 200) {
+          localStorage.setItem("userEmail", email);
           navigate("/main");
         }
       })
       .catch((error) => {
-        console.error("There was an error logging in!", error);
+        console.error("Logging in error", error);
       });
   }
 

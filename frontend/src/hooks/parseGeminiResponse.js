@@ -3,13 +3,11 @@ function parseGeminiResponse(response) {
     const structuredData = [];
     let currentConcern = null;
   
-    // Step 1: Merge the array into one string and split into real lines
     const lines = response.join('\n').split('\n').map(line => line.trim()).filter(line => line.length > 0);
   
-    // Step 2: Process each clean line
     lines.forEach((line) => {
       if (!line.startsWith("Concern:") && !line.startsWith("Action:")) {
-        return; // skip irrelevant lines
+        return;
       }
   
       if (line.startsWith("Concern:")) {
@@ -22,7 +20,7 @@ function parseGeminiResponse(response) {
   
         currentConcern = {
           critical: isCritical,
-          concern: concernText.replace(/critical!?/i, "").trim(), // clean "CRITICAL" word
+          concern: concernText.replace(/critical!?/i, "").trim(),
           actions: [],
         };
       } else if (line.startsWith("Action:") && currentConcern) {
@@ -34,7 +32,6 @@ function parseGeminiResponse(response) {
       }
     });
   
-    // Push the last concern if it exists
     if (currentConcern) {
       structuredData.push(currentConcern);
     }
