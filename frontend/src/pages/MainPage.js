@@ -44,11 +44,7 @@ function MainPage() {
     ];
 
     return (
-        <div 
-            className="flex h-screen bg-gray-100 dark:bg-black"
-            onKeyDown={handleKeyDown}
-            tabIndex={0}
-        >
+        <div className="flex h-screen bg-gray-100 dark:bg-black">
             {/* Mobile Overlay */}
             {isMobile && isSidebarOpen && (
                 <div 
@@ -64,7 +60,7 @@ function MainPage() {
                 } ${isMobile ? (isSidebarOpen ? 'translate-x-0' : '-translate-x-full') : ''}`}
                 aria-expanded={isSidebarOpen}
             >
-                {/* Sidebar Header with Logo */}
+                {/* Sidebar content */}
                 <div className="p-3 border-b dark:border-gray-800">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-2">
@@ -135,11 +131,13 @@ function MainPage() {
             </div>
 
             {/* Main Content */}
-            <div className={`flex-1 overflow-auto transition-all duration-300 ${isSidebarOpen ? 'md:ml-64' : 'md:ml-16'}`}>
-                <div className="h-full w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <main className={`flex-1 transition-all duration-300 ${
+                isMobile ? 'w-full' : isSidebarOpen ? 'w-[calc(100%-16rem)]' : 'w-[calc(100%-4rem)]'
+            }`}>
+                <div className="h-full w-full p-4">
                     <Outlet />
                 </div>
-            </div>
+            </main>
         </div>
     );
 }
