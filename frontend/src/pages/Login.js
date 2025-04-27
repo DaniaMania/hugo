@@ -11,7 +11,9 @@ function Login() {
   function handleLogin(e) {
     e.preventDefault();
     axios
-      .post("http://localhost:5000/auth/login", { email, password })
+      const backendURL = import.meta.env.VITE_REACT_APP_BACKEND_BASEURL;
+      axios.post(`${backendURL}/auth/login`, { email, password })
+    
       .then((response) => {
         console.log(response.data);
         if (response.status === 200) {

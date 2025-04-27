@@ -33,10 +33,11 @@ app.use(logger);
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cors({
-    origin: ['http://localhost:3000', 'http://localhost:3001'],
+    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
     credentials: true
   }));
   
+
 
 // Set view engine to EJS
 app.set('view engine', 'ejs');
@@ -149,4 +150,6 @@ async function loadEmailsIntoDatabase() {
 
 loadEmailsIntoDatabase();
 
-app.listen(5000, () => console.log('Server running on http://localhost:5000'));
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+

@@ -22,7 +22,9 @@ function Hugo() {
     setLoading(true);
 
     axios
-      .post("http://localhost:5000/gemini", { prompt: input })
+      const backendURL = import.meta.env.VITE_REACT_APP_BACKEND_BASEURL;
+      axios.post(`${backendURL}/gemini`, { prompt: input })
+    
       .then((response) => {
         const rawResponse = response.data.response;
         const aiResponse = formatResponse(rawResponse);
