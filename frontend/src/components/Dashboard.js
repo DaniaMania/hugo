@@ -55,7 +55,7 @@ function Dashboard() {
     };
 
     axios
-      .get("https://hugo-lovat-tau.vercel.app/gemini/notification")
+      .get("/api/gemini/notification")
       .then((response) => {
         if (isMounted) {
           const parsedAlerts = parseGeminiResponse(response.data.response);
