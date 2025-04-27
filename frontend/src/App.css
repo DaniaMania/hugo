@@ -1,0 +1,49 @@
+.App {
+  text-align: center;
+  font-family: 'Ubuntu', sans-serif;
+  background: linear-gradient(135deg, #1472FF 22%, #FFFFFF 45%, #7BCCFF 72%);
+  min-height: 100vh;
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background: linear-gradient(135deg, #1472FF 22%, #FFFFFF 45%, #7BCCFF 72%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.App-link {
+  color: transparent;
+  background: linear-gradient(135deg, #1472FF 22%, #FFFFFF 45%, #7BCCFF 72%);
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
