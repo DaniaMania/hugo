@@ -7,6 +7,13 @@ const app = express();
 
 const db = new Database('emails.db');
 
+/**
+ * Creates the 'emails' table if it does not exist.
+ * stores emails with fields: date, sender, recipient, subject, and content.
+ * Credit to https://www.youtube.com/watch?v=OqvzvrXWLU0&t=517s
+ * Credit to https://www.youtube.com/watch?v=SccSCuHhOw0&t=220s
+ * Credit to OpenAI
+ */
 db.prepare(`
 CREATE TABLE IF NOT EXISTS emails (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -23,25 +30,34 @@ CREATE TABLE IF NOT EXISTS emails (
 app.use(json());
 app.use(logger);
 
-// View engine
+// Set view engine to EJS
 app.set('view engine', 'ejs');
 
 // Routes
 import router from './routes/gemini.js';
 app.use('/gemini', router);
 
-// Home page
+// home page view temporary
 app.get('/', (req, res) => {
     res.render('index', { text: "World" });
 });
 
-// Logger Middleware
+/**
+ * Logs each incoming request's original URL to the console.
+ * @param {express.Request} req Request object
+ * @param {express.Response} res Response object
+ * @param {express.NextFunction} next Next middleware function
+ */
 function logger(req, res, next) {
     console.log(req.originalUrl);
     next();
 }
 
-// Format JS Date to MySQL DATETIME string
+/**
+ * Formats a JS Date object into a date time string
+ * @param {Date} date The JavaScript Date object
+ * @returns {string} Formatted date string
+ */
 function formatDateToMySQL(date) {
     const pad = (n) => n < 10 ? '0' + n : n;
     return date.getFullYear() + '-' +
@@ -52,7 +68,10 @@ function formatDateToMySQL(date) {
            pad(date.getSeconds());
 }
 
-// Load emails from folder into SQLite
+/**
+ * read .eml files from the 'hugo_data_samples/emails' folder,
+ * parses the content, and inserts them into the email table
+ */
 async function loadEmailsIntoDatabase() {
     const emailsDir = path.join(process.cwd(), 'hugo_data_samples/emails');
     const files = fs.readdirSync(emailsDir).filter(file => file.endsWith('.eml'));
@@ -86,8 +105,7 @@ async function loadEmailsIntoDatabase() {
             }
         }
 
-        const lines = fileContent.split('\n')
-
+        const lines = fileContent.split('\n');
         const headers = {};
         let i = 0;
         while (i < lines.length && lines[i].trim() !== '') {
@@ -100,8 +118,7 @@ async function loadEmailsIntoDatabase() {
             }
             i++;
         }
-    
-        
+
         const content = lines.slice(i + 1).join('\n');
 
         if (sender && recipient && subject && date && content) {
@@ -124,7 +141,6 @@ async function loadEmailsIntoDatabase() {
 
     console.log('All emails loaded into local database!');
 }
-
 
 loadEmailsIntoDatabase();
 
