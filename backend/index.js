@@ -39,8 +39,8 @@ app.set('view engine', 'ejs');
 
 import router from './routes/gemini.js';
 import authRoutes from './routes/auth.js';
-app.use('/api/gemini', router);
-app.use('/api/auth', authRoutes);
+app.use('https://hugo-lovat-tau.vercel.app/api/gemini', router);
+app.use('https://hugo-lovat-tau.vercel.app/api/auth', authRoutes);
 
 
 /**
