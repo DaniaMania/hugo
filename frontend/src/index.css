@@ -170,8 +170,59 @@
 
 
 @layer components {
+  @keyframes gradientMove {
+    0% {
+      background-position: 0% 0%;
+    }
+    25% {
+      background-position: 0% 40%;
+    }
+    50% {
+      background-position: 0% 20%;
+    }
+    75% {
+      background-position: 0% 40%;
+    }
+    100% {
+      background-position: 0% 0%;
+    }
+  }
+
+  @keyframes fadeOut {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      background-color: black;
+    }
+  }
+
+  @keyframes slideUp {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-100%);
+    }
+  }
+
+  .ai-chat {
+    font-size: 1rem;
+    font-family: 'Ubuntu', sans-serif;
+    color: #000;
+    @apply dark:text-gray-900
+
+  }
   .landing-background {
     @apply bg-landing bg-black;
+    background-size: 100% 200%;
+    animation: gradientMove 12s ease-in-out infinite;
+    background-image: 
+      radial-gradient(at 100% 100%, rgba(24, 69, 173, 0.9) 0, transparent 52%),
+      radial-gradient(at 83% 100%, rgba(255, 81, 47, 0.9) 0, transparent 29%),
+      radial-gradient(at 0% 100%, rgba(35, 162, 246, 0.9) 0, transparent 36%),
+      radial-gradient(at 15% 100%, rgba(240, 152, 25, 0.7) 0, transparent 40%);
   }
   
   .gradient-text {
@@ -179,7 +230,6 @@
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    font-weight: bold;
     font-size: 4rem;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   }
@@ -228,7 +278,9 @@
       --stop-2 1s,
       --stop-3 1s,
       --stop-4 1s,
-      --stop-5 1s;
+      --stop-5 1s,
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
   }
 
   .glow-button::before {
@@ -262,6 +314,10 @@
     --stop-4: 71.34%;
     --stop-5: 85.76%;
   }
+
+  .glow-button:active {
+    transform: scale(0.95);
+  }
 }
 
 body {
@@ -280,4 +336,16 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.landing-page {
+  transition: opacity 0.2s ease-out;
+}
+
+.landing-page.fade-out {
+  animation: fadeOut 0.2s ease-out forwards;
+}
+
+.landing-page.slide-up {
+  animation: slideUp 1s ease-in-out forwards;
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import formatResponse from "../hooks/FormatResponse";
 import axios from "axios";
 
@@ -13,6 +13,17 @@ function Hugo() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // useEffect(() => {
+  //   const storedMessages = localStorage.getItem("chatMessages");
+  //   if (storedMessages) {
+  //     setMessages(JSON.parse(storedMessages));
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   localStorage.setItem("chatMessages", JSON.stringify(messages));
+  // }, [messages]);
+  
   function handleSend() {
     if (!input.trim()) return;
 
@@ -21,9 +32,19 @@ function Hugo() {
     setInput("");
     setLoading(true);
 
+    // fake AI response for demonstration
+    // setTimeout(() => {
+    //   const aiResponse = "This is a simulated AI response.\n\nSomethingelse";
+    //   setMessages((prev) => [
+    //     ...prev,
+    //     { role: "ai", content: formatResponse(aiResponse) },
+    //   ]);
+    //   setLoading(false);
+    // }, 1000);
     axios
       .post("http://localhost:4000/gemini", { prompt: input })
       .then((response) => {
+        console.log("AI response:", response.data.response);
         const rawResponse = response.data.response;
         const aiResponse = formatResponse(rawResponse);
         setMessages((prev) => [...prev, { role: "ai", content: aiResponse }]);
@@ -51,8 +72,8 @@ function Hugo() {
             key={idx}
             className={`p-3 rounded-lg max-w-[75%] lg:max-w-[60%] w-fit ${
               msg.role === "user"
-                ? "bg-blue-500 text-[#fff] ml-auto"
-                : "bg-gray-300 text-[#000] mr-auto"
+                ? "bg-blue-500 text-white ml-auto"
+                : "bg-gray-300 mr-auto"
             }`}
           >
             {msg.content}
@@ -75,7 +96,7 @@ function Hugo() {
         <input
           type="text"
           className="flex-1 border rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          placeholder="Type your message..."
+          placeholder="What do you want to help with today?"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleSend()}
@@ -85,6 +106,15 @@ function Hugo() {
           onClick={handleSend}
         >
           Send
+        </button>
+        <button
+          className="ml-4 bg-red-500 text-white rounded-full px-4 py-2 hover:bg-red-600"
+          onClick={() => {
+            setMessages([]);
+            localStorage.removeItem("chatMessages");
+          }}
+        >
+          Clear
         </button>
       </div>
     </div>
