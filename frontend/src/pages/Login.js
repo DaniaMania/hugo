@@ -13,7 +13,8 @@ function Login() {
   function handleLogin(e) {
     e.preventDefault();
     axios
-      .post("/api/auth/login", { email, password })
+      .post("https://hugo-lovat-tau.vercel.app/auth/login", { email, password })
+
       .then((response) => {
         console.log(response.data);
         if (response.status === 200) {
