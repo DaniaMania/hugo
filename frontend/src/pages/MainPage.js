@@ -45,7 +45,7 @@ function MainPage() {
 
     return (
         <div 
-            className="flex h-screen bg-gray-100 dark:bg-black"
+            className="flex min-h-screen bg-gray-100 dark:bg-black"
             onKeyDown={handleKeyDown}
             tabIndex={0}
         >

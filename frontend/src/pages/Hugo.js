@@ -1,50 +1,76 @@
 import React, { useState } from "react";
+import formatResponse from "../hooks/FormatResponse";
 import axios from "axios";
 
 function Hugo() {
-    const [messages, setMessages] = useState([
-        {role: "assistant", content: "Hi, I'm Hugo, your AI Agent. How can I assist you today?"}
-    ]);
+  const [messages, setMessages] = useState([
+    {
+      role: "assistant",
+      content: "Hi, I'm Hugo, your AI Agent. How can I assist you today?",
+    },
+  ]);
 
-    const [input, setInput] = useState("");
+  const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
 
-    function handleSend(){
-        if (!input.trim()) return;
+  function handleSend() {
+    if (!input.trim()) return;
 
-        
-        const newMessages = [...messages, { role: "user", content: input }];
-        setMessages(newMessages);
-        setInput("");
-    
-        // Fake AI response
-        setTimeout(() => {
-          setMessages((prev) => [
-            ...prev,
-            { role: "ai", content: "I'm just a mock AI. Tell me more!" }
-          ]);
-        }, 1000);
-      }
-    return (
-        <div className="p-4">
+    const newMessages = [...messages, { role: "user", content: input }];
+    setMessages(newMessages);
+    setInput("");
+    setLoading(true);
 
-            <h1 className="text-2xl font-bold mb-4">Hugo</h1>
-            <p>Hi, I'm Hugo, your AI Agent.</p>
+    axios
+      .post("http://localhost:5000/gemini", { prompt: input })
+      .then((response) => {
+        const rawResponse = response.data.response;
+        const aiResponse = formatResponse(rawResponse);
+        setMessages((prev) => [...prev, { role: "ai", content: aiResponse }]);
+      })
+      .catch((error) => {
+        console.error("Error fetching AI response:", error);
+        setMessages((prev) => [
+          ...prev,
+          { role: "ai", content: "Sorry, I couldn't fetch a response." },
+        ]);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }
 
- {/* Chat Container */}
+  return (
+    <div className="p-4">
+      <h1 className="text-2xl font-bold mb-4">Hugo</h1>
+
+      {/* Chat */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.map((msg, idx) => (
           <div
             key={idx}
-            className={`max-w-xs p-3 rounded-lg ${
-              msg.role === "user" ? "bg-blue-500 text-white ml-auto" : "bg-gray-300 text-black mr-auto"
+            className={`p-3 rounded-lg max-w-[75%] lg:max-w-[60%] w-fit ${
+              msg.role === "user"
+                ? "bg-blue-500 text-white ml-auto"
+                : "bg-gray-300 text-black mr-auto"
             }`}
           >
             {msg.content}
           </div>
         ))}
+
+        {loading && (
+          <div className="p-3 rounded-lg max-w-[75%] lg:max-w-[60%] w-fit bg-gray-300 text-black mr-auto">
+            <div className="flex items-center gap-1">
+              <span className="w-2 h-2 bg-black rounded-full animate-wave"></span>
+              <span className="w-2 h-2 bg-black rounded-full animate-wave delay-200"></span>
+              <span className="w-2 h-2 bg-black rounded-full animate-wave delay-400"></span>
+            </div>
+          </div>
+        )}
       </div>
 
-      {/* Input Box */}
+      {/* Input */}
       <div className="p-4 flex items-center">
         <input
           type="text"
@@ -61,8 +87,8 @@ function Hugo() {
           Send
         </button>
       </div>
-        </div>
-    );
+    </div>
+  );
 }
 
 export default Hugo;
