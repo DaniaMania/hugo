@@ -4,7 +4,7 @@ import { GoogleGenAI } from "@google/genai";
 
 dotenv.config();
 
-const ai = new GoogleGenAI({ apiKey: process.env.TEMP4_GEMINI_API_KEY }); // Use TEMP?_GEMINI_API_KEY when quota of the primary one is reached
+const ai = new GoogleGenAI({ apiKey: process.env.TEMP6_GEMINI_API_KEY }); // Use TEMP?_GEMINI_API_KEY when quota of the primary one is reached
 
 // upload the provided hugo_data_samples excluding emails
 const files = [

@@ -152,7 +152,8 @@ function MainPage() {
             onClick={() => {
 
               navigate("/login");
-              localStorage.removeItem("user-email");
+              localStorage.removeItem("userEmail");
+              localStorage.removeItem("chatMessages");
               localStorage.clear();
             }}
             className="flex items-center justify-center w-full p-2 text-red-600 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors duration-200"

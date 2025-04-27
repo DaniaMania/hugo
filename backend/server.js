@@ -42,8 +42,8 @@ app.use(cors({
 
 // Routes
 import router from './routes/gemini.js';
-import authRoutes from './routes/auth.js';
-import emailRoutes from './routes/emails.js';
+import authRoutes from './auth.js';
+import emailRoutes from './emails.js';
 app.use('/gemini', router);
 app.use('/auth', authRoutes);
 app.use('/emails', emailRoutes);

@@ -38,6 +38,7 @@ function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [criticalAlerts, setCriticalAlerts] = useState([]);
   const [normalAlerts, setNormalAlerts] = useState([]);
+  // const [isFetched, setIsFetched] = useState(false);
 
   useEffect(() => {
     // localStorage.clear();
@@ -62,7 +63,7 @@ function Dashboard() {
           localStorage.setItem("alerts", JSON.stringify(parsedAlerts));
           const critical = parsedAlerts.filter((item) => item.critical);
           const normal = parsedAlerts.filter((item) => !item.critical);
-
+          // setIsFetched(true);
           setCriticalAlerts(critical);
           setNormalAlerts(normal);
         }

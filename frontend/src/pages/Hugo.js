@@ -53,8 +53,8 @@ function Hugo() {
       .then((response) => {
         console.log("AI response:", response.data.response);
         const rawResponse = response.data.response;
-        const aiResponse = formatResponse(rawResponse);
-        setMessages((prev) => [...prev, { role: "ai", content: aiResponse }]);
+        // const aiResponse = formatResponse(rawResponse);
+        setMessages((prev) => [...prev, { role: "ai", content: rawResponse }]);
       })
       .catch((error) => {
         console.error("Error fetching AI response:", error);
