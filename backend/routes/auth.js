@@ -4,15 +4,11 @@ const router = express.Router();
 
 const users = [
     {
-        email: "test@com",
+        email: "test@voltway.co",
         password: "test"
     },
     {
-        email: "123@com",
-        password: "test"
-    },
-    {
-        email: "abc@com",
+        email: "123@voltway.co",
         password: "test"
     },
     {

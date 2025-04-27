@@ -293,30 +293,30 @@ function Dashboard() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Reactive Intelligence */}
-          <div className="bg-white rounded-lg shadow p-8 text-fit">
+          <div className="bg-white rounded-lg shadow p-8 text-fit dark:bg-[#282423] ">
             <h2 className="mb-6">🔔 Urgent</h2>
             {loading ? (
-              <div className="flex justify-center items-center h-32">
+              <div className="flex justify-center items-center h-32 dark:bg-[#282423]">
                 <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
               </div>
             ) : (
-              <div className="space-y-4">
+              <div className="space-y-4 ">
                 {criticalAlerts.length > 0 ? (
                   criticalAlerts.map((item, index) => (
                     <div
                       key={index}
-                      className="p-4 rounded-lg bg-gray-50 border-l-4 border-red-500"
+                      className="p-4 rounded-lg dark:bg-[#282423] bg-gray-50 border-l-4 border-red-500"
                     >
                       <h3 className="font-bold text-red-600 mb-2">
                         Critical Concern:
                       </h3>
                       <p className="text-gray-800 mb-4">{item.concern}</p>
-                      <h4 className="font-semibold text-gray-700 mb-2">
+                      <h4 className="font-semibold text-gray-700 dark:text-gray-200 mb-2">
                         Actions:
                       </h4>
                       <ul className="list-disc pl-5 space-y-2">
                         {item.actions.map((action, actionIndex) => (
-                          <li key={actionIndex} className="text-gray-700">
+                          <li key={actionIndex} className="text-gray-700 dark:text-gray-200 ">
                             {action}
                           </li>
                         ))}
@@ -331,10 +331,10 @@ function Dashboard() {
           </div>
 
           {/* Email Alerts (normal concerns now) */}
-          <div className="bg-white rounded-lg shadow p-8">
+          <div className="bg-white rounded-lg shadow p-8 dark:bg-[#282423] ">
             <h2 className="mb-6">Other Concerns</h2>
             {loading ? (
-              <div className="flex justify-center items-center h-32">
+              <div className="flex justify-center items-center h-32 dark:bg-[#282423]">
                 <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
               </div>
             ) : (
@@ -359,16 +359,16 @@ function Dashboard() {
                   {normalAlerts.map((item, index) => (
                     <div
                       key={index}
-                      className="p-4 rounded-lg bg-gray-50 border-l-4 border-blue-300"
+                      className="p-4 rounded-lg bg-gray-50 dark:bg-[#282423] border-l-4 border-blue-300"
                     >
                       <h3 className="font-bold text-blue-600 mb-2">Concern:</h3>
                       <p className="text-gray-800 mb-4">{item.concern}</p>
-                      <h4 className="font-semibold text-gray-700 mb-2">
+                      <h4 className="font-semibold text-gray-700 dark:text-gray-200 mb-2">
                         Actions:
                       </h4>
                       <ul className="list-disc pl-5 space-y-2">
                         {item.actions.map((action, actionIndex) => (
-                          <li key={actionIndex} className="text-gray-700">
+                          <li key={actionIndex} className="text-gray-700 dark:text-gray-200 ">
                             {action}
                           </li>
                         ))}

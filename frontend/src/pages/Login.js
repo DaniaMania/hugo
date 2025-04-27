@@ -17,6 +17,7 @@ function Login() {
       .then((response) => {
         console.log(response.data);
         if (response.status === 200) {
+          localStorage.setItem("user-email", email);
           navigate("/main");
         }
       })

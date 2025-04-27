@@ -1,29 +1,36 @@
 import React, { useEffect, useState } from "react";
 import formatResponse from "../hooks/FormatResponse";
 import axios from "axios";
+import { format } from "url";
 
 function Hugo() {
-  const [messages, setMessages] = useState([
-    {
-      role: "assistant",
-      content: "Hi, I'm Hugo, your AI Agent. How can I assist you today?",
-    },
-  ]);
+  const [messages, setMessages] = useState([]);
 
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
-
-  // useEffect(() => {
-  //   const storedMessages = localStorage.getItem("chatMessages");
-  //   if (storedMessages) {
-  //     setMessages(JSON.parse(storedMessages));
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   localStorage.setItem("chatMessages", JSON.stringify(messages));
-  // }, [messages]);
   
+  useEffect(() => {
+    const storedMessages = localStorage.getItem("chatMessages");
+    if (storedMessages) {
+      setMessages(JSON.parse(storedMessages));
+    } else {
+      setMessages([
+        {
+          role: "assistant",
+          content: "Hi, I'm Hugo, your AI Agent. How can I assist you today?",
+        },
+      ]);
+    }
+  }, []);
+  
+  useEffect(() => {
+    if (messages.length > 0) {
+      localStorage.setItem("chatMessages", JSON.stringify(messages));
+    }
+  }, [messages]);
+
+
+
   function handleSend() {
     if (!input.trim()) return;
 
@@ -37,7 +44,7 @@ function Hugo() {
     //   const aiResponse = "This is a simulated AI response.\n\nSomethingelse";
     //   setMessages((prev) => [
     //     ...prev,
-    //     { role: "ai", content: formatResponse(aiResponse) },
+    //     { role: "ai", content: aiResponse},
     //   ]);
     //   setLoading(false);
     // }, 1000);
@@ -71,12 +78,16 @@ function Hugo() {
           <div
             key={idx}
             className={`p-3 rounded-lg max-w-[75%] lg:max-w-[60%] w-fit ${
-              msg.role === "user"
+              msg.role === "user" 
                 ? "bg-blue-500 text-white ml-auto"
                 : "bg-gray-300 mr-auto"
             }`}
           >
-            {msg.content}
+            {msg.role === "user" ? (
+              msg.content
+            ) : (
+              formatResponse(msg.content)
+            )}
           </div>
         ))}
 

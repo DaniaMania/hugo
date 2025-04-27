@@ -38,13 +38,16 @@ app.use(cors({
 }));
 
 // Set view engine to EJS
-app.set('view engine', 'ejs');
+// app.set('view engine', 'ejs');
 
 // Routes
 import router from './routes/gemini.js';
 import authRoutes from './routes/auth.js';
+import emailRoutes from './routes/emails.js';
 app.use('/gemini', router);
 app.use('/auth', authRoutes);
+app.use('/emails', emailRoutes);
+
 
 /**
  * Logs each incoming request's original URL to the console.
