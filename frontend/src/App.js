@@ -13,6 +13,7 @@ import Dashboard from "./components/Dashboard";
 import Hugo from "./pages/Hugo";
 import Inbox from "./pages/Inbox";
 import Orders from "./pages/Orders";
+import OrderDetail from "./components/OrderDetail";
 import Stock from "./pages/Stock";
 // import Home from "./pages/Home";
 
@@ -29,6 +30,7 @@ function App() {
             <Route path="inbox" element={<Inbox />} />
             <Route path="hugo" element={<Hugo />} />
             <Route path="orders" element={<Orders />} />
+            <Route path="orders/:orderId" element={<OrderDetail />} />
             <Route path="stock" element={<Stock />} />
           </Route>
         </Routes>

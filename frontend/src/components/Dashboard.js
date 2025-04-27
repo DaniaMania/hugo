@@ -207,7 +207,7 @@ function Dashboard() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Reactive Intelligence Section */}
                 <div className="bg-white dark:bg-[#282423] rounded-xl shadow-lg p-6 mb-6">
-                    <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 font-['Inter']">🔔 Reactive Intelligence</h2>
+                    <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 font-['Inter']">Reactive Intelligence</h2>
                     <div className="space-y-4">
                         {alerts.map((alert, index) => (
                             <div key={index} className={`p-4 rounded-lg ${
