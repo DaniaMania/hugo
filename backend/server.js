@@ -33,9 +33,10 @@ app.use(logger);
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cors({
-    origin: 'http://localhost:3000',
-    credentials: true,
-}));
+    origin: ['http://localhost:3000', 'http://localhost:3001'],
+    credentials: true
+  }));
+  
 
 // Set view engine to EJS
 app.set('view engine', 'ejs');
