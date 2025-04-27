@@ -37,10 +37,10 @@ function MainPage() {
 
     const sidebarItems = [
         { icon: <FaHome />, label: 'Dashboard', path: '/main', end: true },
-        { icon: <FaBox />, label: 'Orders', path: '/main/orders' },
         { icon: <FaInbox />, label: 'Inbox', path: '/main/inbox' },
-        { icon: <FaRobot />, label: 'Hugo', path: '/main/hugo' },
+        { icon: <FaBox />, label: 'Orders', path: '/main/orders' },
         { icon: <FaWarehouse />, label: 'Stock', path: '/main/stock' },
+        { icon: <FaRobot />, label: 'Hugo', path: '/main/hugo' },
     ];
 
     return (
@@ -60,7 +60,7 @@ function MainPage() {
                 } ${isMobile ? (isSidebarOpen ? 'translate-x-0' : '-translate-x-full') : ''}`}
                 aria-expanded={isSidebarOpen}
             >
-                {/* Sidebar content */}
+                {/* Sidebar Header */}
                 <div className="p-3 border-b dark:border-gray-800">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-2">
@@ -72,7 +72,7 @@ function MainPage() {
                                 {isSidebarOpen ? <FaChevronLeft className="text-gray-600 dark:text-gray-300" /> : <FaBars className="text-gray-600 dark:text-gray-300" />}
                             </button>
                             {isSidebarOpen && (
-                                <h1 className="text-xl font-bold text-blue-600 dark:bg-[linear-gradient(135deg,#1472FF_22%,#FFFFFF_45%,#7BCCFF_72%)] dark:bg-clip-text dark:text-transparent font-['Ubuntu']">
+                                <h1 className="text-[36px] font-bold text-blue-600 dark:bg-[linear-gradient(135deg,#1472FF_22%,#FFFFFF_45%,#7BCCFF_72%)] dark:bg-clip-text dark:text-transparent font-['Ubuntu'] leading-[44px]">
                                     Voltway
                                 </h1>
                             )}
@@ -106,7 +106,7 @@ function MainPage() {
                         >
                             <span className="w-5 h-5 flex items-center justify-center" title={item.label}>{item.icon}</span>
                             {isSidebarOpen && (
-                                <span className="ml-3 font-['Inter'] whitespace-nowrap overflow-hidden text-ellipsis">
+                                <span className="ml-3 font-['Inter'] text-[16px] leading-[24px] whitespace-nowrap overflow-hidden text-ellipsis">
                                     {item.label}
                                 </span>
                             )}
@@ -115,14 +115,14 @@ function MainPage() {
                 </nav>
 
                 {/* Logout Button */}
-                <div className="p-3 border-t dark:border-gray-800">
+                <div className="p-3 border-t dark:border-gray-800 mt-auto">
                     <button
                         onClick={() => navigate('/login')}
                         className="flex items-center justify-center w-full p-2 text-red-600 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors duration-200"
                     >
                         <FaSignOutAlt className="w-5 h-5 flex items-center justify-center" title="Logout" />
                         {isSidebarOpen && (
-                            <span className="ml-3 font-['Inter'] whitespace-nowrap overflow-hidden text-ellipsis">
+                            <span className="ml-3 font-['Inter'] text-[16px] leading-[24px] whitespace-nowrap overflow-hidden text-ellipsis">
                                 Logout
                             </span>
                         )}
@@ -131,7 +131,7 @@ function MainPage() {
             </div>
 
             {/* Main Content */}
-            <main className={`flex-1 transition-all duration-300 ${
+            <main className={`flex-1 transition-all duration-300 overflow-y-auto ${
                 isMobile ? 'w-full' : isSidebarOpen ? 'w-[calc(100%-16rem)]' : 'w-[calc(100%-4rem)]'
             }`}>
                 <div className="h-full w-full p-4">

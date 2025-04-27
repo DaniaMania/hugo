@@ -133,21 +133,21 @@ function Dashboard() {
             <div className="space-y-6">
                 {/* Stock Overview Section */}
                 <div className="bg-white dark:bg-[#282423] rounded-xl shadow-lg p-6">
-                    <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 font-['Inter']">Stock Overview</h2>
+                    <h2 className="text-[30px] font-bold text-gray-800 dark:text-white mb-4 font-['Ubuntu'] leading-[38px]">Stock Overview</h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
-                            <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-200 font-['Inter']">Total Parts</h3>
-                            <p className="text-4xl font-bold text-gray-900 dark:text-white font-['Inter']">{stockData.length}</p>
+                        <div className="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 p-6 rounded-lg border border-blue-200 dark:border-blue-800">
+                            <h3 className="text-[24px] font-bold text-blue-700 dark:text-blue-300 font-['Ubuntu'] leading-[32px]">Total Parts</h3>
+                            <p className="text-4xl font-bold text-blue-900 dark:text-blue-200 font-['Ubuntu']">{stockData.length}</p>
                         </div>
-                        <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
-                            <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-200 font-['Inter']">Total Quantity</h3>
-                            <p className="text-4xl font-bold text-gray-900 dark:text-white font-['Inter']">
+                        <div className="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 p-6 rounded-lg border border-green-200 dark:border-green-800">
+                            <h3 className="text-[24px] font-bold text-green-700 dark:text-green-300 font-['Ubuntu'] leading-[32px]">Total Quantity</h3>
+                            <p className="text-4xl font-bold text-green-900 dark:text-green-200 font-['Ubuntu']">
                                 {stockData.reduce((sum, part) => sum + part.quantity, 0)}
                             </p>
                         </div>
-                        <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
-                            <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-200 font-['Inter']">Active Locations</h3>
-                            <p className="text-4xl font-bold text-gray-900 dark:text-white font-['Inter']">
+                        <div className="bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 p-6 rounded-lg border border-purple-200 dark:border-purple-800">
+                            <h3 className="text-[24px] font-bold text-purple-700 dark:text-purple-300 font-['Ubuntu'] leading-[32px]">Active Locations</h3>
+                            <p className="text-4xl font-bold text-purple-900 dark:text-purple-200 font-['Ubuntu']">
                                 {new Set(stockData.map(part => part.location)).size}
                             </p>
                         </div>
@@ -210,7 +210,7 @@ function Dashboard() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     {/* Reactive Intelligence Section */}
                     <div className="bg-white dark:bg-[#282423] rounded-xl shadow-lg p-6">
-                        <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 font-['Inter']">Reactive Intelligence</h2>
+                        <h2 className="text-[30px] font-bold text-gray-800 dark:text-white mb-4 font-['Ubuntu'] leading-[38px]">Reactive Intelligence</h2>
                         <div className="space-y-4">
                             {alerts.map((alert, index) => (
                                 <div key={index} className={`p-4 rounded-lg ${
@@ -219,8 +219,8 @@ function Dashboard() {
                                     'bg-blue-50 dark:bg-blue-900/20 text-blue-800 dark:text-blue-200'
                                 }`}>
                                     <div className="flex justify-between items-center">
-                                        <p className="font-medium text-base font-['Inter']">{alert.message}</p>
-                                        <span className="text-sm opacity-75 font-['Inter']">{alert.timestamp}</span>
+                                        <p className="font-normal text-[16px] font-['Inter'] leading-[24px]">{alert.message}</p>
+                                        <span className="text-[14px] opacity-75 font-['Inter'] leading-[20px]">{alert.timestamp}</span>
                                     </div>
                                 </div>
                             ))}
@@ -229,7 +229,7 @@ function Dashboard() {
 
                     {/* Email Alerts Section */}
                     <div className="bg-white dark:bg-[#282423] rounded-xl shadow-lg p-6">
-                        <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 font-['Inter']">Email Alerts</h2>
+                        <h2 className="text-[30px] font-bold text-gray-800 dark:text-white mb-4 font-['Ubuntu'] leading-[38px]">Email Alerts</h2>
                         <div className="space-y-4">
                             {emails.map((email, index) => (
                                 <div key={index} className={`p-4 rounded-lg border ${
@@ -237,10 +237,10 @@ function Dashboard() {
                                 }`}>
                                     <div className="flex justify-between items-start">
                                         <div>
-                                            <p className="font-medium text-base text-gray-900 dark:text-gray-200 font-['Inter']">{email.from}</p>
-                                            <p className="text-base text-gray-600 dark:text-gray-400 font-['Inter']">{email.subject}</p>
+                                            <p className="font-normal text-[16px] text-gray-900 dark:text-gray-200 font-['Inter'] leading-[24px]">{email.from}</p>
+                                            <p className="text-[16px] text-gray-600 dark:text-gray-400 font-['Inter'] leading-[24px]">{email.subject}</p>
                                         </div>
-                                        <span className="text-sm text-gray-500 dark:text-gray-400 font-['Inter']">{email.timestamp}</span>
+                                        <span className="text-[14px] text-gray-500 dark:text-gray-400 font-['Inter'] leading-[20px]">{email.timestamp}</span>
                                     </div>
                                 </div>
                             ))}
