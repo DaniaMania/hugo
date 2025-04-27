@@ -131,9 +131,9 @@ function Dashboard() {
     return (
         <div className="space-y-8">
             {/* Stock Overview Section */}
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
-                <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Stock Overview</h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div className="bg-white dark:bg-[#282423] rounded-xl shadow-lg p-6 mb-6">
+                <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-4 font-['Inter']">Stock Overview</h2>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div className="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg">
                         <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300">Total Parts</h3>
                         <p className="text-3xl font-bold text-gray-900 dark:text-white">{stockData.length}</p>
@@ -160,8 +160,8 @@ function Dashboard() {
                                 onClick={() => setActiveTab('movement')}
                                 className={`${
                                     activeTab === 'movement'
-                                        ? 'border-blue-500 text-blue-600'
-                                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                                        ? 'border-blue-500 text-blue-600 dark:text-white'
+                                        : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white hover:border-gray-300'
                                 } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
                             >
                                 Stock Movement
@@ -170,8 +170,8 @@ function Dashboard() {
                                 onClick={() => setActiveTab('distribution')}
                                 className={`${
                                     activeTab === 'distribution'
-                                        ? 'border-blue-500 text-blue-600'
-                                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                                        ? 'border-blue-500 text-blue-600 dark:text-white'
+                                        : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white hover:border-gray-300'
                                 } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
                             >
                                 Stock Distribution
@@ -180,8 +180,8 @@ function Dashboard() {
                                 onClick={() => setActiveTab('category')}
                                 className={`${
                                     activeTab === 'category'
-                                        ? 'border-blue-500 text-blue-600'
-                                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                                        ? 'border-blue-500 text-blue-600 dark:text-white'
+                                        : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white hover:border-gray-300'
                                 } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
                             >
                                 Category Distribution
@@ -190,8 +190,8 @@ function Dashboard() {
                                 onClick={() => setActiveTab('ratio')}
                                 className={`${
                                     activeTab === 'ratio'
-                                        ? 'border-blue-500 text-blue-600'
-                                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                                        ? 'border-blue-500 text-blue-600 dark:text-white'
+                                        : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white hover:border-gray-300'
                                 } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
                             >
                                 Quantity Ratio
@@ -206,8 +206,8 @@ function Dashboard() {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Reactive Intelligence Section */}
-                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
-                    <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">🔔 Reactive Intelligence</h2>
+                <div className="bg-white dark:bg-[#282423] rounded-xl shadow-lg p-6 mb-6">
+                    <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-4 font-['Inter']">🔔 Reactive Intelligence</h2>
                     <div className="space-y-4">
                         {alerts.map((alert, index) => (
                             <div key={index} className={`p-4 rounded-lg ${
@@ -225,8 +225,8 @@ function Dashboard() {
                 </div>
 
                 {/* Email Alerts Section */}
-                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
-                    <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Email Alerts</h2>
+                <div className="bg-white dark:bg-[#282423] rounded-xl shadow-lg p-6">
+                    <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-4 font-['Inter']">Email Alerts</h2>
                     <div className="space-y-4">
                         {emails.map((email, index) => (
                             <div key={index} className={`p-4 rounded-lg border ${

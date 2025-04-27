@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import { useDarkMode } from "../components/DarkModeContext";
+import { FaHome, FaBox, FaEnvelope, FaShoppingCart, FaSignOutAlt, FaSun, FaMoon } from 'react-icons/fa';
 
 function MainPage() {
-    const { isDarkMode, toggleDarkMode } = useDarkMode();
+    const [isDarkMode, setIsDarkMode] = useState(false);
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const navigate = useNavigate();
 
@@ -12,12 +12,18 @@ function MainPage() {
     };
 
     const handleSignOut = () => {
-        // Here you would typically clear any user session/tokens
+        // Clear user session
+        localStorage.removeItem('token');
         navigate('/login');
     };
 
+    const toggleDarkMode = () => {
+        setIsDarkMode(!isDarkMode);
+        document.documentElement.classList.toggle('dark');
+    };
+
     return (
-        <div className={`flex h-screen ${isDarkMode ? "bg-gray-900 text-white" : "bg-gray-100 text-black"}`}>
+        <div className={`flex h-screen ${isDarkMode ? 'dark' : ''}`}>
             {/* Floating Toggle Button */}
             {!isSidebarOpen && (
                 <button
@@ -33,23 +39,36 @@ function MainPage() {
 
             {/* Sidebar */}
             <div
-                className={`fixed top-0 left-0 h-full bg-white dark:bg-gray-800 shadow-lg transform transition-transform duration-300 ease-in-out z-40 ${
+                className={`fixed top-0 left-0 h-full bg-white dark:bg-[#000000] shadow-lg transform transition-transform duration-300 ease-in-out z-40 ${
                     isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
                 }`}
             >
                 <div className="flex flex-col h-full w-64">
                     {/* Sidebar Header */}
-                    <div className="flex items-center justify-between p-4 border-b dark:border-gray-700">
-                        <h1 className="text-2xl font-bold text-blue-600 dark:text-blue-400 font-['Ubuntu']">Voltway</h1>
-                        <button
-                            onClick={toggleSidebar}
-                            className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
-                            aria-label="Close sidebar"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        </button>
+                    <div className="flex items-center justify-between p-4 border-b dark:border-gray-800">
+                        <h1 className="text-3xl font-bold text-black dark:bg-[linear-gradient(135deg,#1472FF_22%,#FFFFFF_45%,#7BCCFF_72%)] dark:bg-clip-text dark:text-transparent font-['Ubuntu']">Voltway</h1>
+                        <div className="flex items-center space-x-2">
+                            <button
+                                onClick={toggleDarkMode}
+                                className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+                                aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+                            >
+                                {isDarkMode ? (
+                                    <FaSun className="h-6 w-6 text-yellow-400" />
+                                ) : (
+                                    <FaMoon className="h-6 w-6 text-gray-600" />
+                                )}
+                            </button>
+                            <button
+                                onClick={toggleSidebar}
+                                className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+                                aria-label="Close sidebar"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-600 dark:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
                     </div>
 
                     {/* Navigation Links */}
@@ -59,15 +78,13 @@ function MainPage() {
                             className={({ isActive }) =>
                                 `flex items-center p-3 rounded-lg transition-colors duration-200 ${
                                     isActive
-                                        ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
-                                        : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                                        ? 'bg-blue-50 dark:bg-gray-800 text-blue-600 dark:text-blue-400'
+                                        : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                                 }`
                             }
                         >
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                            </svg>
-                            <span className="font-['Inter']">Dashboard</span>
+                            <FaHome className="w-6 h-6 mr-3 text-gray-600 dark:text-white" />
+                            <span className="text-lg font-['Inter']">Dashboard</span>
                         </NavLink>
                         
                         <NavLink
@@ -75,45 +92,39 @@ function MainPage() {
                             className={({ isActive }) =>
                                 `flex items-center p-3 rounded-lg transition-colors duration-200 ${
                                     isActive
-                                        ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
-                                        : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                                        ? 'bg-blue-50 dark:bg-gray-800 text-blue-600 dark:text-blue-400'
+                                        : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                                 }`
                             }
                         >
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
-                            </svg>
-                            <span className="font-['Inter']">Hugo Chatbot</span>
+                            <FaBox className="w-6 h-6 mr-3 text-gray-600 dark:text-white" />
+                            <span className="text-lg font-['Inter']">Hugo Chatbot</span>
                         </NavLink>
                         <NavLink
                             to="/main/inbox"
                             className={({ isActive }) =>
                                 `flex items-center p-3 rounded-lg transition-colors duration-200 ${
                                     isActive
-                                        ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
-                                        : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                                        ? 'bg-blue-50 dark:bg-gray-800 text-blue-600 dark:text-blue-400'
+                                        : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                                 }`
                             }
                         >
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                            </svg>
-                            <span className="font-['Inter']">Inbox</span>
+                            <FaEnvelope className="w-6 h-6 mr-3 text-gray-600 dark:text-white" />
+                            <span className="text-lg font-['Inter']">Inbox</span>
                         </NavLink>
                         <NavLink
                             to="/main/orders"
                             className={({ isActive }) =>
                                 `flex items-center p-3 rounded-lg transition-colors duration-200 ${
                                     isActive
-                                        ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
-                                        : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                                        ? 'bg-blue-50 dark:bg-gray-800 text-blue-600 dark:text-blue-400'
+                                        : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                                 }`
                             }
                         >
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                            </svg>
-                            <span className="font-['Inter']">Orders</span>
+                            <FaShoppingCart className="w-6 h-6 mr-3 text-gray-600 dark:text-white" />
+                            <span className="text-lg font-['Inter']">Orders</span>
                         </NavLink>
                         
                         <NavLink
@@ -121,38 +132,36 @@ function MainPage() {
                             className={({ isActive }) =>
                                 `flex items-center p-3 rounded-lg transition-colors duration-200 ${
                                     isActive
-                                        ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
-                                        : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                                        ? 'bg-blue-50 dark:bg-gray-800 text-blue-600 dark:text-blue-400'
+                                        : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                                 }`
                             }
                         >
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-3 text-gray-600 dark:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
                             </svg>
-                            <span className="font-['Inter']">Stock Data</span>
+                            <span className="text-lg font-['Inter']">Stock Data</span>
                         </NavLink>
                     </nav>
 
                     {/* Sidebar Footer */}
-                    <div className="p-4 border-t dark:border-gray-700">
+                    <div className="p-4 border-t dark:border-gray-800">
                         <div className="flex items-center justify-between mb-4">
                             <div className="flex items-center space-x-3">
-                                <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white">
-                                    <span className="text-sm font-medium font-['Inter']">U</span>
+                                <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white">
+                                    <span className="text-base font-medium font-['Inter']">U</span>
                                 </div>
                                 <div>
-                                    <p className="text-sm font-medium text-gray-700 dark:text-gray-300 font-['Inter']">User Name</p>
-                                    <p className="text-xs text-gray-500 dark:text-gray-400 font-['Inter']">user@example.com</p>
+                                    <p className="text-base font-medium text-gray-700 dark:text-gray-300 font-['Inter']">User Name</p>
+                                    <p className="text-sm text-gray-500 dark:text-gray-400 font-['Inter']">user@example.com</p>
                                 </div>
                             </div>
                         </div>
                         <button
                             onClick={handleSignOut}
-                            className="w-full flex items-center justify-center p-2 text-sm text-gray-600 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors duration-200 font-['Inter']"
+                            className="w-full flex items-center justify-center p-2 text-base text-gray-600 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-gray-800 rounded-lg transition-colors duration-200 font-['Inter']"
                         >
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                            </svg>
+                            <FaSignOutAlt className="w-6 h-6 mr-2 text-gray-600 dark:text-white" />
                             Sign Out
                         </button>
                     </div>
