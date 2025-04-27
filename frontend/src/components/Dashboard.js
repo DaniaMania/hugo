@@ -5,7 +5,7 @@ import {
   Bar, PieChart, Pie, Cell, ScatterChart, Scatter, ZAxis,
 } from "recharts";
 import axios from "axios";
-import parseGeminiResponse from "../hooks/parseGeminiResponse"; // Adjust the import path as necessary
+import parseGeminiResponse from "../hooks/parseGeminiResponse";
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#8884d8"];
 
@@ -40,7 +40,7 @@ function Dashboard() {
   const [normalAlerts, setNormalAlerts] = useState([]);
 
   useEffect(() => {
-    // localStorage.clear(); // Clear local storage for testing purposes
+    // localStorage.clear();
     let isMounted = true;
 
     const localData = localStorage.getItem("alerts");
@@ -51,7 +51,7 @@ function Dashboard() {
       setCriticalAlerts(critical);
       setNormalAlerts(normal);
       setLoading(false);
-      return; // Don't fetch if already loaded from local
+      return;
     };
 
     axios
