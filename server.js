@@ -8,9 +8,9 @@ app.use(cors());
 
 // routes
 app.get('/', (req, res) => {
-    res.json({ message: 'Welcome to Hugo API' });
+    res.json({ message: 'Welcome to the Hugo API' });
 });
 
 // server 
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
