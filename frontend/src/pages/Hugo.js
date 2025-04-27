@@ -42,7 +42,7 @@ function Hugo() {
     //   setLoading(false);
     // }, 1000);
     axios
-      .post("http://localhost:4000/gemini", { prompt: input })
+      .post("https://hugo-lovat-tau.vercel.app/gemini", { prompt: input })
       .then((response) => {
         console.log("AI response:", response.data.response);
         const rawResponse = response.data.response;
